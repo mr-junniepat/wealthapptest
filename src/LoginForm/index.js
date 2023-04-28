@@ -5,6 +5,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import AuthContext from '../AuthContext';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
 
 const LoginForm = () => {
     const [show, setShow] = useState(false);
@@ -13,6 +14,10 @@ const LoginForm = () => {
     const [errorMessage, setErrorMessage] = useState(null);
     const { setIsAuthenticated, setUser } = useContext(AuthContext);
     const navigation = useNavigation();
+
+    const [fontsLoaded] = useFonts({
+        'Lato-Regular': require('../../assets/fonts/Lato-Regular.ttf'),
+      });
 
   const handleLogin = async () => {
     try {
@@ -25,7 +30,7 @@ const LoginForm = () => {
       if (response.status === 200) {
         setIsAuthenticated(true);
         setUser(response.data);
-        navigation.navigate('Home', { screen: 'Home' });
+        navigation.navigate('HomeStack', { screen: 'Home' });
       }
     } catch (error) {
       setErrorMessage(
@@ -37,13 +42,13 @@ const LoginForm = () => {
   };
 
   return (
-    <Box flex={1} p={4}>
+    <Box flex={1} p={4} style={{ fontFamily: 'Lato-Regular' }}>
       <VStack space={4}>
-        <Heading marginTop="180px" marginBottom="-5px">Hi, Welcome Back!</Heading>
-        <Text color="#555">Hey, you've been missed</Text>
+        <Heading marginTop="180px" marginBottom="-5px" style={{ fontFamily: 'Lato-Regular' }}>Hi, Welcome Back!</Heading>
+        <Text color="#555" style={{ fontFamily: 'Lato-Regular' }}>Hey, you've been missed</Text>
 
             <FormControl w="100%" marginTop="60px">
-                <FormControl.Label>Username</FormControl.Label>
+                <FormControl.Label style={{ fontFamily: 'Lato-Regular' }}>Username</FormControl.Label>
                 <Input placeholder="Email"
                  h="50px"
                 keyboardType="email-address"
@@ -52,7 +57,7 @@ const LoginForm = () => {
             </FormControl>
 
             <FormControl w="100%">
-                <FormControl.Label>Password</FormControl.Label>
+                <FormControl.Label  style={{ fontFamily: 'Lato-Regular' }}>Password</FormControl.Label>
                 <Input
                 placeholder="Password"
                 type="password"
@@ -71,7 +76,7 @@ const LoginForm = () => {
           </Text>
         )}
 
-        <Button h="50px" marginTop="20px" background="#1573FE" onPress={handleLogin}>Login</Button>
+        <Button h="50px" marginTop="20px" background="#1573FE" style={{ fontFamily: 'Lato-Regular', fontSize: '15px' }} onPress={handleLogin}>Login</Button>
       </VStack>
     </Box>
   );
